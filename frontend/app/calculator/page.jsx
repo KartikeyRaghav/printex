@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import {
   Calculator as CalcIcon,
@@ -12,15 +13,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { supabase } from "../lib/supabase";
 
 export default function Calculator({ onNavigate }) {
-  const {
-    user,
-    profile,
-    subscription,
-    hasAccess,
-    signOut,
-    registerDevice,
-    deviceLimitReached,
-  } = useAuth();
+  const { user, profile, subscription, hasAccess, signOut, registerDevice } =
+    useAuth();
   const [length, setLength] = useState("");
   const [width, setWidth] = useState("");
   const [height, setHeight] = useState("");
@@ -36,7 +30,7 @@ export default function Calculator({ onNavigate }) {
     : 0;
   const hoursRemaining = Math.floor(trialTimeRemaining / (1000 * 60 * 60));
   const minutesRemaining = Math.floor(
-    (trialTimeRemaining % (1000 * 60 * 60)) / (1000 * 60)
+    (trialTimeRemaining % (1000 * 60 * 60)) / (1000 * 60),
   );
 
   const isTrialActive = !subscription && trialTimeRemaining > 0;

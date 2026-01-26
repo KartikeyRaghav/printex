@@ -1,27 +1,27 @@
-import { useState } from 'react';
-import { Calculator, Mail, Lock, AlertCircle, CheckCircle } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-
+"use client";
+import { useState } from "react";
+import { Calculator, Mail, Lock, AlertCircle, CheckCircle } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Signup({ onNavigate }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters long');
+      setError("Password must be at least 6 characters long");
       return;
     }
 
@@ -29,12 +29,12 @@ export default function Signup({ onNavigate }) {
 
     try {
       await signUp(email, password);
-      onNavigate('calculator');
+      onNavigate("calculator");
     } catch (err) {
       if (err instanceof Error) {
-        setError(err.message || 'Failed to create account. Please try again.');
+        setError(err.message || "Failed to create account. Please try again.");
       } else {
-        setError('Failed to create account. Please try again.');
+        setError("Failed to create account. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -47,10 +47,16 @@ export default function Signup({ onNavigate }) {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <Calculator className="h-10 w-10 text-emerald-600" />
-            <span className="text-2xl font-bold text-slate-900">SheetMetal Pro</span>
+            <span className="text-2xl font-bold text-slate-900">
+              SheetMetal Pro
+            </span>
           </div>
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">Start Your Free Trial</h2>
-          <p className="text-slate-600">Get 1 day of full access, no credit card required</p>
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">
+            Start Your Free Trial
+          </h2>
+          <p className="text-slate-600">
+            Get 1 day of full access, no credit card required
+          </p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
@@ -58,7 +64,9 @@ export default function Signup({ onNavigate }) {
             <div className="flex items-start space-x-3">
               <CheckCircle className="h-5 w-5 text-emerald-600 mt-0.5 shrink-0" />
               <div>
-                <p className="text-sm font-medium text-emerald-900">Free Trial Includes:</p>
+                <p className="text-sm font-medium text-emerald-900">
+                  Free Trial Includes:
+                </p>
                 <ul className="text-sm text-emerald-700 mt-1 space-y-1">
                   <li>• Full calculator access for 24 hours</li>
                   <li>• Unlimited calculations</li>
@@ -77,7 +85,10 @@ export default function Signup({ onNavigate }) {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-slate-700 mb-2"
+              >
                 Email Address
               </label>
               <div className="relative">
@@ -95,7 +106,10 @@ export default function Signup({ onNavigate }) {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-slate-700 mb-2"
+              >
                 Password
               </label>
               <div className="relative">
@@ -113,7 +127,10 @@ export default function Signup({ onNavigate }) {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 mb-2">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-slate-700 mb-2"
+              >
                 Confirm Password
               </label>
               <div className="relative">
@@ -135,15 +152,15 @@ export default function Signup({ onNavigate }) {
               disabled={loading}
               className="w-full py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
             >
-              {loading ? 'Creating account...' : 'Start Free Trial'}
+              {loading ? "Creating account..." : "Start Free Trial"}
             </button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-slate-600">
-              Already have an account?{' '}
+              Already have an account?{" "}
               <button
-                onClick={() => onNavigate('login')}
+                onClick={() => onNavigate("login")}
                 className="text-emerald-600 hover:text-emerald-700 font-semibold"
               >
                 Sign in
@@ -154,7 +171,7 @@ export default function Signup({ onNavigate }) {
 
         <div className="mt-6 text-center">
           <button
-            onClick={() => onNavigate('landing')}
+            onClick={() => onNavigate("landing")}
             className="text-slate-600 hover:text-slate-900 text-sm font-medium"
           >
             ← Back to home

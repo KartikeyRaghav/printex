@@ -1,93 +1,98 @@
-import { useState } from 'react';
-import { Calculator, Check, Clock, ArrowLeft, CreditCard } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+"use client";
+import { useState } from "react";
+import { Calculator, Check, Clock, ArrowLeft, CreditCard } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
 
 const plans = [
   {
-    id: '1',
-    name: 'Monthly',
+    id: "1",
+    name: "Monthly",
     price: 499,
-    period: 'month',
-    duration: 'monthly',
+    period: "month",
+    duration: "monthly",
     includedDevices: 2,
     pricePerAdditionalDevice: 199,
     features: [
-      'Unlimited calculations',
-      'Calculation history',
-      'Export results',
-      'Email support',
-      'Mobile access',
+      "Unlimited calculations",
+      "Calculation history",
+      "Export results",
+      "Email support",
+      "Mobile access",
     ],
   },
   {
-    id: '2',
-    name: 'Quarterly',
+    id: "2",
+    name: "Quarterly",
     price: 1299,
-    period: '3 months',
-    duration: 'quarterly',
-    savings: 'Save 13%',
+    period: "3 months",
+    duration: "quarterly",
+    savings: "Save 13%",
     popular: true,
     includedDevices: 2,
     pricePerAdditionalDevice: 199,
     features: [
-      'Unlimited calculations',
-      'Calculation history',
-      'Export results',
-      'Priority email support',
-      'Mobile access',
-      'Advanced analytics',
+      "Unlimited calculations",
+      "Calculation history",
+      "Export results",
+      "Priority email support",
+      "Mobile access",
+      "Advanced analytics",
     ],
   },
   {
-    id: '3',
-    name: 'Half Yearly',
+    id: "3",
+    name: "Half Yearly",
     price: 2399,
-    period: '6 months',
-    duration: 'half_yearly',
-    savings: 'Save 20%',
+    period: "6 months",
+    duration: "half_yearly",
+    savings: "Save 20%",
     includedDevices: 3,
     pricePerAdditionalDevice: 149,
     features: [
-      'Unlimited calculations',
-      'Calculation history',
-      'Export results',
-      'Priority support',
-      'Mobile access',
-      'Advanced analytics',
-      'API access',
+      "Unlimited calculations",
+      "Calculation history",
+      "Export results",
+      "Priority support",
+      "Mobile access",
+      "Advanced analytics",
+      "API access",
     ],
   },
   {
-    id: '4',
-    name: 'Yearly',
+    id: "4",
+    name: "Yearly",
     price: 3999,
-    period: 'year',
-    duration: 'yearly',
-    savings: 'Save 33%',
+    period: "year",
+    duration: "yearly",
+    savings: "Save 33%",
     includedDevices: 5,
     pricePerAdditionalDevice: 99,
     features: [
-      'Unlimited calculations',
-      'Calculation history',
-      'Export results',
-      'Priority support',
-      'Mobile access',
-      'Advanced analytics',
-      'API access',
-      'Custom integrations',
+      "Unlimited calculations",
+      "Calculation history",
+      "Export results",
+      "Priority support",
+      "Mobile access",
+      "Advanced analytics",
+      "API access",
+      "Custom integrations",
     ],
   },
 ];
 
 export default function Pricing({ onNavigate }) {
   const { user, profile, subscription } = useAuth();
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const trialTimeRemaining = profile ? Math.max(0, new Date(profile.trial_ends_at).getTime() - Date.now()) : 0;
+  const trialTimeRemaining = profile
+    ? Math.max(0, new Date(profile.trial_ends_at).getTime() - Date.now())
+    : 0;
   const isTrialActive = trialTimeRemaining > 0;
   const hoursRemaining = Math.floor(trialTimeRemaining / (1000 * 60 * 60));
-  const minutesRemaining = Math.floor((trialTimeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+  const minutesRemaining = Math.floor(
+    (trialTimeRemaining % (1000 * 60 * 60)) / (1000 * 60),
+  );
 
   const handleSelectPlan = (plan) => {
     setSelectedPlan(plan);
@@ -100,11 +105,11 @@ export default function Pricing({ onNavigate }) {
 
     alert(
       `Razorpay Integration Placeholder\n\n` +
-      `Selected Plan: ${selectedPlan.name}\n` +
-      `Amount: ₹${selectedPlan.price}\n` +
-      `Duration: ${selectedPlan.period}\n\n` +
-      `This is where Razorpay payment gateway will be integrated.\n` +
-      `The payment will create/update the subscription in the database.`
+        `Selected Plan: ${selectedPlan.name}\n` +
+        `Amount: ₹${selectedPlan.price}\n` +
+        `Duration: ${selectedPlan.period}\n\n` +
+        `This is where Razorpay payment gateway will be integrated.\n` +
+        `The payment will create/update the subscription in the database.`,
     );
 
     setLoading(false);
@@ -117,12 +122,14 @@ export default function Pricing({ onNavigate }) {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <Calculator className="h-8 w-8 text-emerald-600" />
-              <span className="text-xl font-bold text-slate-900">SheetMetal Pro</span>
+              <span className="text-xl font-bold text-slate-900">
+                SheetMetal Pro
+              </span>
             </div>
             <div className="flex space-x-4">
               {user ? (
                 <button
-                  onClick={() => onNavigate('calculator')}
+                  onClick={() => onNavigate("calculator")}
                   className="flex items-center space-x-2 px-4 py-2 text-slate-700 hover:text-slate-900 font-medium transition-colors"
                 >
                   <ArrowLeft className="h-5 w-5" />
@@ -131,13 +138,13 @@ export default function Pricing({ onNavigate }) {
               ) : (
                 <>
                   <button
-                    onClick={() => onNavigate('login')}
+                    onClick={() => onNavigate("login")}
                     className="px-4 py-2 text-slate-700 hover:text-slate-900 font-medium transition-colors"
                   >
                     Login
                   </button>
                   <button
-                    onClick={() => onNavigate('signup')}
+                    onClick={() => onNavigate("signup")}
                     className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-medium transition-colors shadow-sm"
                   >
                     Get Started
@@ -155,7 +162,8 @@ export default function Pricing({ onNavigate }) {
             <div className="flex items-center justify-center space-x-3">
               <Clock className="h-5 w-5 text-emerald-600" />
               <p className="text-sm text-emerald-900">
-                <span className="font-semibold">Free Trial Active:</span> {hoursRemaining}h {minutesRemaining}m remaining
+                <span className="font-semibold">Free Trial Active:</span>{" "}
+                {hoursRemaining}h {minutesRemaining}m remaining
               </p>
             </div>
           </div>
@@ -168,7 +176,8 @@ export default function Pricing({ onNavigate }) {
             <div className="flex items-center justify-center space-x-3">
               <Check className="h-5 w-5 text-blue-600" />
               <p className="text-sm text-blue-900">
-                <span className="font-semibold">Active Subscription:</span> {subscription.plan_type.replace('_', ' ')} plan
+                <span className="font-semibold">Active Subscription:</span>{" "}
+                {subscription.plan_type.replace("_", " ")} plan
               </p>
             </div>
           </div>
@@ -177,7 +186,9 @@ export default function Pricing({ onNavigate }) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">Choose Your Plan</h1>
+          <h1 className="text-4xl font-bold text-slate-900 mb-4">
+            Choose Your Plan
+          </h1>
           <p className="text-xl text-slate-600">
             Select the perfect plan for your sheet metal calculation needs
           </p>
@@ -189,9 +200,9 @@ export default function Pricing({ onNavigate }) {
               key={plan.id}
               className={`bg-white rounded-xl shadow-lg border-2 transition-all ${
                 selectedPlan?.id === plan.id
-                  ? 'border-emerald-600 shadow-xl transform scale-105'
-                  : 'border-slate-200 hover:border-slate-300'
-              } ${plan.popular ? 'relative' : ''}`}
+                  ? "border-emerald-600 shadow-xl transform scale-105"
+                  : "border-slate-200 hover:border-slate-300"
+              } ${plan.popular ? "relative" : ""}`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
@@ -202,12 +213,18 @@ export default function Pricing({ onNavigate }) {
               )}
 
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">{plan.name}</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">
+                  {plan.name}
+                </h3>
                 {plan.savings && (
-                  <p className="text-sm text-emerald-600 font-semibold mb-2">{plan.savings}</p>
+                  <p className="text-sm text-emerald-600 font-semibold mb-2">
+                    {plan.savings}
+                  </p>
                 )}
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-slate-900">₹{plan.price}</span>
+                  <span className="text-4xl font-bold text-slate-900">
+                    ₹{plan.price}
+                  </span>
                   <span className="text-slate-600">/{plan.period}</span>
                 </div>
 
@@ -224,11 +241,11 @@ export default function Pricing({ onNavigate }) {
                   onClick={() => handleSelectPlan(plan)}
                   className={`w-full py-3 rounded-lg font-semibold transition-colors mb-6 ${
                     selectedPlan?.id === plan.id
-                      ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-                      : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                      ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                      : "bg-slate-100 text-slate-900 hover:bg-slate-200"
                   }`}
                 >
-                  {selectedPlan?.id === plan.id ? 'Selected' : 'Select Plan'}
+                  {selectedPlan?.id === plan.id ? "Selected" : "Select Plan"}
                 </button>
 
                 <ul className="space-y-3">
@@ -246,28 +263,40 @@ export default function Pricing({ onNavigate }) {
 
         {selectedPlan && (
           <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">Complete Your Purchase</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">
+              Complete Your Purchase
+            </h2>
 
             <div className="bg-slate-50 rounded-lg p-6 mb-6">
               <div className="flex justify-between items-center mb-4">
-                <span className="text-slate-700 font-medium">Selected Plan:</span>
-                <span className="text-slate-900 font-bold">{selectedPlan.name}</span>
+                <span className="text-slate-700 font-medium">
+                  Selected Plan:
+                </span>
+                <span className="text-slate-900 font-bold">
+                  {selectedPlan.name}
+                </span>
               </div>
               <div className="flex justify-between items-center mb-4">
                 <span className="text-slate-700 font-medium">Duration:</span>
                 <span className="text-slate-900">{selectedPlan.period}</span>
               </div>
               <div className="flex justify-between items-center pt-4 border-t border-slate-200">
-                <span className="text-lg font-semibold text-slate-900">Total Amount:</span>
-                <span className="text-2xl font-bold text-emerald-600">₹{selectedPlan.price}</span>
+                <span className="text-lg font-semibold text-slate-900">
+                  Total Amount:
+                </span>
+                <span className="text-2xl font-bold text-emerald-600">
+                  ₹{selectedPlan.price}
+                </span>
               </div>
             </div>
 
             {!user ? (
               <div className="text-center py-6">
-                <p className="text-slate-600 mb-4">Please sign in to purchase a plan</p>
+                <p className="text-slate-600 mb-4">
+                  Please sign in to purchase a plan
+                </p>
                 <button
-                  onClick={() => onNavigate('login')}
+                  onClick={() => onNavigate("login")}
                   className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-semibold transition-colors"
                 >
                   Sign In to Continue
@@ -280,7 +309,7 @@ export default function Pricing({ onNavigate }) {
                 className="w-full py-4 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm flex items-center justify-center space-x-2"
               >
                 <CreditCard className="h-6 w-6" />
-                <span>{loading ? 'Processing...' : 'Proceed to Payment'}</span>
+                <span>{loading ? "Processing..." : "Proceed to Payment"}</span>
               </button>
             )}
 
@@ -296,11 +325,13 @@ export default function Pricing({ onNavigate }) {
           <div className="text-center">
             <h2 className="text-3xl font-bold mb-4">Still Have Questions?</h2>
             <p className="text-slate-300 mb-8 max-w-2xl mx-auto">
-              All plans include unlimited calculations, full access to the calculator, and regular updates. Choose the plan that fits your timeline.
+              All plans include unlimited calculations, full access to the
+              calculator, and regular updates. Choose the plan that fits your
+              timeline.
             </p>
             {!user && (
               <button
-                onClick={() => onNavigate('signup')}
+                onClick={() => onNavigate("signup")}
                 className="px-8 py-3 bg-white text-slate-900 rounded-lg hover:bg-slate-100 font-semibold transition-colors"
               >
                 Start Free Trial
@@ -314,11 +345,11 @@ export default function Pricing({ onNavigate }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <Calculator className="h-6 w-6 text-emerald-500" />
-            <span className="text-lg font-semibold text-white">SheetMetal Pro</span>
+            <span className="text-lg font-semibold text-white">
+              SheetMetal Pro
+            </span>
           </div>
-          <p className="text-sm">
-            © 2025 SheetMetal Pro. All rights reserved.
-          </p>
+          <p className="text-sm">© 2025 SheetMetal Pro. All rights reserved.</p>
         </div>
       </footer>
     </div>

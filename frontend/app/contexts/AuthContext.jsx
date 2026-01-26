@@ -1,19 +1,6 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
-import { User } from "@supabase/supabase-js";
-import {
-  supabase,
-  UserProfile,
-  Subscription,
-  Device,
-  PlanDeviceLimit,
-  AdditionalDevicePurchase,
-} from "../lib/supabase";
+"use client";
+import { createContext, useContext, useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
 import {
   initializeDevice,
   getDeviceName,
@@ -151,7 +138,7 @@ export const AuthProvider = ({ children }) => {
           email: data.user.email,
           trial_started_at: new Date().toISOString(),
           trial_ends_at: new Date(
-            Date.now() + 24 * 60 * 60 * 1000
+            Date.now() + 24 * 60 * 60 * 1000,
           ).toISOString(),
         });
 
@@ -212,7 +199,7 @@ export const AuthProvider = ({ children }) => {
     const additionalDevices =
       additionalPurchases?.reduce(
         (sum, purchase) => sum + purchase.additional_devices_count,
-        0
+        0,
       ) || 0;
 
     return baseDevices + additionalDevices;
@@ -230,7 +217,7 @@ export const AuthProvider = ({ children }) => {
 
     if (devicesData.length >= allowedCount) {
       const existingCurrentDevice = devicesData.find(
-        (d) => d.device_id === deviceId
+        (d) => d.device_id === deviceId,
       );
       if (!existingCurrentDevice) {
         throw new Error("DEVICE_LIMIT_EXCEEDED");
@@ -263,7 +250,7 @@ export const AuthProvider = ({ children }) => {
     setDevices(updatedDevices);
 
     const currentDeviceData = updatedDevices.find(
-      (d) => d.device_id === deviceId
+      (d) => d.device_id === deviceId,
     );
     setCurrentDevice(currentDeviceData || null);
 

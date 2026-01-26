@@ -1,12 +1,13 @@
-import { AlertTriangle, LogOut } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+"use client";
+import { AlertTriangle, LogOut } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function DeviceLimitExceeded({ onNavigate }) {
   const { allowedDevices, devices, signOut } = useAuth();
 
   const handleSignOut = async () => {
     await signOut();
-    onNavigate('landing');
+    onNavigate("landing");
   };
 
   return (
@@ -24,36 +25,43 @@ export default function DeviceLimitExceeded({ onNavigate }) {
           </h1>
 
           <p className="text-slate-600 text-center mb-6">
-            You've reached the maximum number of devices allowed with your current plan.
-            You cannot access your account from this device.
+            You've reached the maximum number of devices allowed with your
+            current plan. You cannot access your account from this device.
           </p>
 
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-            <p className="text-sm text-red-900 font-semibold mb-2">Current Usage:</p>
+            <p className="text-sm text-red-900 font-semibold mb-2">
+              Current Usage:
+            </p>
             <p className="text-lg font-bold text-red-700">
               {devices.length} / {allowedDevices} devices
             </p>
           </div>
 
           <div className="space-y-4 mb-8">
-            <p className="text-sm text-slate-700 font-semibold">To regain access, you can:</p>
+            <p className="text-sm text-slate-700 font-semibold">
+              To regain access, you can:
+            </p>
             <ul className="space-y-2 text-sm text-slate-600">
               <li className="flex items-start space-x-3">
                 <span className="text-red-600 font-bold shrink-0">1.</span>
                 <span>
-                  <strong>Manage devices:</strong> Remove an unused device from your Device Management page
+                  <strong>Manage devices:</strong> Remove an unused device from
+                  your Device Management page
                 </span>
               </li>
               <li className="flex items-start space-x-3">
                 <span className="text-red-600 font-bold shrink-0">2.</span>
                 <span>
-                  <strong>Purchase more slots:</strong> Add device slots to your subscription
+                  <strong>Purchase more slots:</strong> Add device slots to your
+                  subscription
                 </span>
               </li>
               <li className="flex items-start space-x-3">
                 <span className="text-red-600 font-bold shrink-0">3.</span>
                 <span>
-                  <strong>Upgrade your plan:</strong> Choose a plan with more included device slots
+                  <strong>Upgrade your plan:</strong> Choose a plan with more
+                  included device slots
                 </span>
               </li>
             </ul>
@@ -61,7 +69,7 @@ export default function DeviceLimitExceeded({ onNavigate }) {
 
           <div className="space-y-3">
             <button
-              onClick={() => onNavigate('add-devices')}
+              onClick={() => onNavigate("add-devices")}
               className="w-full py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-semibold transition-colors"
             >
               Purchase Device Slots

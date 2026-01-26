@@ -1,21 +1,22 @@
-import { useState, useEffect } from 'react';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Calculator from './pages/Calculator';
-import Pricing from './pages/Pricing';
-import DeviceManagement from './pages/DeviceManagement';
-import AddDevices from './pages/AddDevices';
-import DeviceLimitExceeded from './pages/DeviceLimitExceeded';
+"use client";
+import { useState, useEffect } from "react";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import DeviceLimitExceeded from "./deviceLimitExceeded/page";
+import Login from "./login/page";
+import Signup from "./signup/page";
+import Calculator from "./calculator/page";
+import Pricing from "./pricing/page";
+import DeviceManagement from "./deviceManagement/page";
+import AddDevices from "./addDevice/page";
+import Landing from "./landing/page";
 
 function AppContent() {
-  const [currentPage, setCurrentPage] = useState('landing');
+  const [currentPage, setCurrentPage] = useState("landing");
   const { user, loading, deviceLimitReached } = useAuth();
 
   useEffect(() => {
-    if (!loading && user && currentPage === 'landing') {
-      setCurrentPage('calculator');
+    if (!loading && user && currentPage === "landing") {
+      setCurrentPage("calculator");
     }
   }, [user, loading, currentPage]);
 
@@ -34,37 +35,37 @@ function AppContent() {
     );
   }
 
-  if (deviceLimitReached && currentPage === 'calculator') {
+  if (deviceLimitReached && currentPage === "calculator") {
     return <DeviceLimitExceeded onNavigate={handleNavigate} />;
   }
 
-  if (currentPage === 'login') {
+  if (currentPage === "login") {
     return <Login onNavigate={handleNavigate} />;
   }
 
-  if (currentPage === 'signup') {
+  if (currentPage === "signup") {
     return <Signup onNavigate={handleNavigate} />;
   }
 
-  if (currentPage === 'calculator') {
+  if (currentPage === "calculator") {
     if (!user) {
       return <Login onNavigate={handleNavigate} />;
     }
     return <Calculator onNavigate={handleNavigate} />;
   }
 
-  if (currentPage === 'pricing') {
+  if (currentPage === "pricing") {
     return <Pricing onNavigate={handleNavigate} />;
   }
 
-  if (currentPage === 'device-management') {
+  if (currentPage === "device-management") {
     if (!user) {
       return <Login onNavigate={handleNavigate} />;
     }
     return <DeviceManagement onNavigate={handleNavigate} />;
   }
 
-  if (currentPage === 'add-devices') {
+  if (currentPage === "add-devices") {
     if (!user) {
       return <Login onNavigate={handleNavigate} />;
     }
